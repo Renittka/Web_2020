@@ -6,3 +6,5 @@
 # end_other('abc', 'abXabc') → True
 
 
+def end_other(a, b):
+    pass
