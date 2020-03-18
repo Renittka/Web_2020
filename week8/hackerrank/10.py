@@ -8,6 +8,7 @@
 # reverse: Reverse the list.
 # Initialize your list and read in the value of  followed by  lines of commands where each command will be of the
 # types listed above. Iterate through each command in order and perform the corresponding operation on your list.
+
 a = []
 N = int(input())
 for n in range(N):
@@ -28,15 +29,4 @@ for n in range(N):
             a.pop()
     if command == 'reverse':
         a.reverse()
-# for row in range(N):
-#     inputs = input().split(" ")
-#     if len(inputs) == 1:
-#         command = inputs[0]
-#     if len(inputs) == 2:
-#         command = inputs[0]
-#         e = int(inputs[1])
-#     if len(inputs) == 3:
-#         command = inputs[0]
-#         i = int(inputs[1])
-#         e = int(inputs[2])
 

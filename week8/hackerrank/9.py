@@ -3,3 +3,17 @@
 # and marks for  students. You are required to save the record in a dictionary data type.
 # The user then enters a student's name. Output the average percentage marks obtained by that student,
 # correct to two decimal places.
+
+if __name__ == '__main__':
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    query_name = input()
+
+    score=student_marks[query_name]
+    print("{0:.2f}".format(sum(score)/len(score)))
+
+
