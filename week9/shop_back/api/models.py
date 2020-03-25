@@ -18,3 +18,8 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=300)
+
+    def to_json(self):
+        return {
+            'name': self.name
+        }

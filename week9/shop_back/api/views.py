@@ -10,7 +10,9 @@ def products_list(request):
 
 
 def categories_list(request):
-    pass
+    categories = Category.objects.all()
+    categories_json = [category.to_json() for category in categories]
+    return JsonResponse(categories_json, safe=False)
 
 
 def category_detail(request):
