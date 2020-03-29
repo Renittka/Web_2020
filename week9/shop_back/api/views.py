@@ -9,6 +9,15 @@ def products_list(request):
     return JsonResponse(products_json, safe=False)
 
 
+def product_detail(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    return JsonResponse(product.to_json())
+
+
 def categories_list(request):
     categories = Category.objects.all()
     categories_json = [category.to_json() for category in categories]
@@ -20,7 +29,6 @@ def category_detail(request, category_id):
         category = Category.objects.get(id=category_id)
     except Category.DoesNotExist as e:
         return JsonResponse({'error': str(e)})
-        # raise Http404
 
     return JsonResponse(category.to_json())
 
