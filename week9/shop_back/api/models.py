@@ -15,7 +15,7 @@ class Product(models.Model):
     price = models.FloatField()
     description = models.TextField(default='')
     count = models.IntegerField()
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default="", editable=False)
 
     def to_json(self):
         return {

@@ -15,9 +15,17 @@ def categories_list(request):
     return JsonResponse(categories_json, safe=False)
 
 
-def category_detail(request):
-    pass
+def category_detail(request, category_id):
+    try:
+        category = Category.objects.get(id=category_id)
+    except Category.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+        # raise Http404
+
+    return JsonResponse(category.to_json())
 
 
-def category_products(request):
-    pass
+def category_products(request, category_id):
+    category_prod = Product.objects.all().filter(category_id=category_id)
+    cat_prod_json = [product.to_json() for product in category_prod]
+    return JsonResponse(cat_prod_json, safe=False)

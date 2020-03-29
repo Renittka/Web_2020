@@ -10,6 +10,6 @@ urlpatterns = [
     #     # /api/categories/<int:id>/products/ - List of Products by Category
     path('products/', products_list),
     path('categories/', categories_list),
-    path('categories/<int:id>', category_detail),
-    path('categories/<int:id/products>', category_products)
+    path('categories/<int:category_id>', category_detail),
+    path('categories/<int:category_id>/products', category_products)
 ]
