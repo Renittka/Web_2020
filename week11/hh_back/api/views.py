@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render
 from api.models import Company, Vacancy
 from django.http import JsonResponse
@@ -38,7 +39,7 @@ def vacancies_detail(request, id):
 
 
 def vacancies_top(request):
-    vac_top = Vacancy.objects.order_by('-salary')
+    vac_top = Vacancy.objects.annotate(num_vac=Count('vacancy')).order_by('-num_books')[:10]
     vac_json = [vacancy.to_json() for vacancy in vac_top]
     return JsonResponse(vac_json, safe=False)
 
