@@ -5,7 +5,7 @@ class Company(models.Model):
     name = models.CharField(max_length=300)
     description = models.TextField(default='')
     city = models.CharField(max_length=300)
-    address = models.FloatField()
+    address = models.CharField(max_length=300)
 
     def to_json(self):
         return {

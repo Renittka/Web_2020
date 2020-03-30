@@ -15,5 +15,5 @@ urlpatterns = [
     path('companies/<int:id>/vacancies/', company_vacancies),
     path('vacancies/', vacancies_list),
     path('vacancies/<int:id>/', vacancies_detail),
-    path('companies/top_ten/', vacancies_top)
+    path('vacancies/top_ten/', vacancies_top)
 ]
