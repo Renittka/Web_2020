@@ -9,6 +9,7 @@ class Company(models.Model):
 
     def to_json(self):
         return {
+            'id': self.id,
             'name': self.name,
             'description': self.description,
             'city': self.city,
@@ -24,6 +25,7 @@ class Vacancy(models.Model):
 
     def to_json(self):
         return {
+            'id': self.id,
             'name': self.name,
             'description': self.description,
             'salary': self.salary

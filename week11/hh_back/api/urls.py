@@ -11,9 +11,9 @@ from api.views import companies_list, companies_detail, company_vacancies, vacan
 
 urlpatterns = [
     path('companies/', companies_list),
-    path('companies/<int:id>/', companies_detail),
-    path('companies/<int:id>/vacancies/', company_vacancies),
+    path('companies/<int:company_id>/', companies_detail),
+    path('companies/<int:company_id>/vacancies/', company_vacancies),
     path('vacancies/', vacancies_list),
-    path('vacancies/<int:id>/', vacancies_detail),
+    path('vacancies/<int:vacancy_id>/', vacancies_detail),
     path('vacancies/top_ten/', vacancies_top)
 ]
