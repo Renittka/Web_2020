@@ -82,7 +82,7 @@ def vacancies_detail(request, vacancy_id):
 
 @csrf_exempt
 def vacancies_top(request):
-    vac_top = Vacancy.objects.annotate(num_vac=Count('salary')).order_by('-salary')[:10]
+    vac_top = Vacancy.objects.order_by('-salary')[:10]
     vac_json = [vacancy.to_json() for vacancy in vac_top]
     if request.method == 'GET':
         return JsonResponse(vac_json, safe=False)
