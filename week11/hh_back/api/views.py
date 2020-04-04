@@ -9,7 +9,11 @@ from django.http import JsonResponse
 @csrf_exempt
 def companies_list(request):
     if request.method == 'GET':
-        companies = Company.objects.all()
+        try:
+            companies = Company.objects.all()
+        except Vacancy.DoesNotExist as e:
+            return JsonResponse({'error': str(e)})
+
         companies_json = [company.to_json() for company in companies]
         return JsonResponse(companies_json, safe=False)
     elif request.method == 'POST':
@@ -26,6 +30,7 @@ def companies_detail(request, company_id):
         company = Company.objects.get(id=company_id)
     except Company.DoesNotExist as e:
         return JsonResponse({'error': str(e)})
+
     if request.method == 'GET':
         return JsonResponse(company.to_json())
     elif request.method == 'POST':
@@ -53,7 +58,11 @@ def company_vacancies(request, company_id):
 @csrf_exempt
 def vacancies_list(request):
     if request.method == 'GET':
-        vacancies = Vacancy.objects.all()
+        try:
+            vacancies = Vacancy.objects.all()
+        except Vacancy.DoesNotExist as e:
+            return JsonResponse({'error': str(e)})
+
         vacancies_json = [vacancy.to_json() for vacancy in vacancies]
         return JsonResponse(vacancies_json, safe=False)
     elif request.method == 'POST':
@@ -70,6 +79,7 @@ def vacancies_detail(request, vacancy_id):
         vacancy = Vacancy.objects.get(id=vacancy_id)
     except Vacancy.DoesNotExist as e:
         return JsonResponse({'error': str(e)})
+    
     if request.method == 'GET':
         return JsonResponse(vacancy.to_json())
     elif request.method == 'POST':
