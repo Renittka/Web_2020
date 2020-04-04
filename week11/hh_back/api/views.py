@@ -44,7 +44,11 @@ def companies_detail(request, company_id):
 @csrf_exempt
 def company_vacancies(request, company_id):
     if request.method == 'GET':
-        vacancies = Vacancy.objects.filter(company_id=company_id)
+        try:
+            vacancies = Vacancy.objects.filter(company_id=company_id)
+        except Vacancy.DoesNotExist as e:
+            return JsonResponse({'error': str(e)})
+
         vacancies_json = [vacancy.to_json() for vacancy in vacancies]
         return JsonResponse(vacancies_json, safe=False)
     elif request.method == 'POST':
@@ -79,7 +83,7 @@ def vacancies_detail(request, vacancy_id):
         vacancy = Vacancy.objects.get(id=vacancy_id)
     except Vacancy.DoesNotExist as e:
         return JsonResponse({'error': str(e)})
-    
+
     if request.method == 'GET':
         return JsonResponse(vacancy.to_json())
     elif request.method == 'POST':
