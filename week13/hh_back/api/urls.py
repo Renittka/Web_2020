@@ -4,8 +4,9 @@ from django.urls import path
 #     vacancies_top
 # from api.views.views_cbv import CompanyListAPIView, CompanyDetailAPIView, CompanyVacanciesListAPIView, \
 #     VacancyListAPIView, VacancyDetailAPIView, TopVacanciesListAPIView
-from api.views.views_generic_v1 import CompanyListAPIView, CompanyDetailAPIView
-
+# from api.views.views_generic_v1 import CompanyListAPIView, CompanyDetailAPIView
+from api.views.views_generic import CompanyListAPIView, CompanyDetailAPIView, VacancyListAPIView, VacancyDetailAPIView,\
+    CompanyWithVacanciesListAPIView
 
 urlpatterns = [
     # path('companies/', companies_list),
@@ -16,9 +17,9 @@ urlpatterns = [
     # path('vacancies/top_ten/', vacancies_top)
 
     path('companies/', CompanyListAPIView.as_view()),
-    path('companies/<int:company_id>/', CompanyDetailAPIView.as_view()),
-    # path('companies/<int:company_id>/vacancies/', CompanyVacanciesListAPIView.as_view()),
-    # path('vacancies/', VacancyListAPIView.as_view()),
-    # path('vacancies/<int:vacancy_id>/', VacancyDetailAPIView.as_view()),
+    path('companies/<int:pk>/', CompanyDetailAPIView.as_view()),
+    path('companies/<int:company_id>/vacancies/', CompanyWithVacanciesListAPIView.as_view()),
+    path('vacancies/', VacancyListAPIView.as_view()),
+    path('vacancies/<int:pk>/', VacancyDetailAPIView.as_view()),
     # path('vacancies/top_ten/', TopVacanciesListAPIView.as_view())
 ]

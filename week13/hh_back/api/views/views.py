@@ -52,9 +52,15 @@ def companies_detail(request, company_id):
 def company_vacancies(request, company_id):
     if request.method == 'GET':
         try:
-            vacancies = Vacancy.objects.filter(company_id=company_id)
-        except Vacancy.DoesNotExist as e:
+            company = Company.objects.get(id=company_id)
+        except Company.DoesNotExist as e:
             return JsonResponse({'error': str(e)})
+        vacancies = company.vacancies.all()
+
+        # try:
+        #     vacancies = Vacancy.objects.filter(company_id=company_id)
+        # except Vacancy.DoesNotExist as e:
+        #     return JsonResponse({'error': str(e)})
 
         vacancies_json = [vacancy.to_json() for vacancy in vacancies]
         return JsonResponse(vacancies_json, safe=False)

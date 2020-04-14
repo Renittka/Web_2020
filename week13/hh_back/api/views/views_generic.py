@@ -2,8 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from api.models import Company, Vacancy
-
-from api.serializers import CompanySerializer2, VacancySerializer
+from api.serializers import CompanySerializer2, VacancySerializer, CompanyWithVacanciesSerializer
 
 
 class CompanyListAPIView(generics.ListCreateAPIView):
@@ -25,3 +24,9 @@ class VacancyListAPIView(generics.ListCreateAPIView):
 class VacancyDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Vacancy.objects.all()
     serializer_class = VacancySerializer
+
+
+class CompanyWithVacanciesListAPIView(generics.ListAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanyWithVacanciesSerializer
+
