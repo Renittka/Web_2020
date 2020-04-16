@@ -8,6 +8,8 @@ from django.urls import path
 from api.views.views_generic import CompanyListAPIView, CompanyDetailAPIView, VacancyListAPIView, VacancyDetailAPIView,\
     CompanyWithVacanciesListAPIView
 
+from rest_framework_jwt.views import obtain_jwt_token
+
 urlpatterns = [
     # path('companies/', companies_list),
     # path('companies/<int:company_id>/', companies_detail),
@@ -15,10 +17,13 @@ urlpatterns = [
     # path('vacancies/', vacancies_list),
     # path('vacancies/<int:vacancy_id>/', vacancies_detail),
     # path('vacancies/top_ten/', vacancies_top)
+    path('login/', obtain_jwt_token),
 
     path('companies/', CompanyListAPIView.as_view()),
     path('companies/<int:pk>/', CompanyDetailAPIView.as_view()),
-    path('companies/<int:company_id>/vacancies/', CompanyWithVacanciesListAPIView.as_view()),
+
+    path('companies/<int:pk>/vacancies/', CompanyWithVacanciesListAPIView.as_view()),
+
     path('vacancies/', VacancyListAPIView.as_view()),
     path('vacancies/<int:pk>/', VacancyDetailAPIView.as_view()),
     # path('vacancies/top_ten/', TopVacanciesListAPIView.as_view())

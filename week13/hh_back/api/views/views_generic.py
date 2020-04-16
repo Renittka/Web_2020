@@ -8,7 +8,7 @@ from api.serializers import CompanySerializer2, VacancySerializer, CompanyWithVa
 class CompanyListAPIView(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer2
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated, )
 
 
 class CompanyDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -29,4 +29,3 @@ class VacancyDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class CompanyWithVacanciesListAPIView(generics.ListAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanyWithVacanciesSerializer
-
