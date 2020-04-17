@@ -65,3 +65,27 @@ class VacancyDetailAPIView(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class CompanyVacanciesAPIView(mixins.ListModelMixin,
+                         mixins.CreateModelMixin,
+                         generics.GenericAPIView):
+    queryset = Vacancy.objects.all()
+    serializer_class = VacancySerializer
+    lookup_url_kwarg = 'company_id'
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(self, request, *args, **kwargs)
+
+
+class TopVacanciesAPIView(mixins.ListModelMixin,
+                         mixins.CreateModelMixin,
+                         generics.GenericAPIView):
+    queryset = Vacancy.objects.order_by('-salary')[:10]
+    serializer_class = VacancySerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

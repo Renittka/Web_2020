@@ -3,22 +3,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from api.models import Company, Vacancy
-from api.serializers import CompanySerializer2, VacancySerializer
+from api.serializers import CompanySerializer, VacancySerializer
 
 
 @api_view(['GET', 'POST'])
 def companies_list(request):
     if request.method == 'GET':
-        companies = Company.objects.all()
-        serializer = CompanySerializer2(companies, many=True)
+        try:
+            companies = Company.objects.all()
+        except Company.DoesNotExist as e:
+            return Response({'error': str(e)})
 
+        serializer = CompanySerializer(companies, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = CompanySerializer2(data=request.data)
+        serializer = CompanySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response({'error': serializer.errors},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -31,11 +35,11 @@ def companies_detail(request, company_id):
         return Response({'error': str(e)})
 
     if request.method == 'GET':
-        serializer = CompanySerializer2(company)
+        serializer = CompanySerializer(company)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = CompanySerializer2(instance=company, data=request.data)
+        serializer = CompanySerializer(instance=company, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

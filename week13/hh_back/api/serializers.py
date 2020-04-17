@@ -5,6 +5,9 @@ from api.models import Company, Vacancy
 class CompanySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField()
+    description = serializers.CharField(max_length=300)
+    city = serializers.CharField(max_length=300)
+    address = serializers.CharField(max_length=300)
 
     def create(self, validated_data):
         company = Company.objects.create(name=validated_data.get('name'))
@@ -29,6 +32,27 @@ class VacancySerializer(serializers.ModelSerializer):
     class Meta:
         model = Vacancy
         fields = ('id', 'name', 'description', 'salary', 'company', 'company_id')
+
+
+class VacancySerializer2(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(max_length=300)
+    description = serializers.CharField(max_length=300)
+    salary = serializers.FloatField()
+    company = CompanySerializer2(read_only=True)
+    company_id = serializers.IntegerField(write_only=True)
+
+    def create(self, validated_data):
+        vacancy = Vacancy.objects.create(**validated_data)
+        return vacancy
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.salary = validated_data.get('salary', instance.salary)
+        instance.company_id = validated_data.get('company_id', instance.company_id)
+        instance.save()
+        return instance
 
 
 class CompanyWithVacanciesSerializer(serializers.ModelSerializer):
