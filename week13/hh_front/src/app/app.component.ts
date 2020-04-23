@@ -22,11 +22,15 @@ export class AppComponent implements OnInit {
   }
 
   login() {
+
+    // username: admin1, password: passadmin123
+
     this.companyService.login(this.username, this.password).subscribe(res => {
       localStorage.setItem('token', res.token);
       this.logged = true;
       this.username = '';
       this.password = '';
+      // console.log(res);
     });
     // this.logged = true;
   }
